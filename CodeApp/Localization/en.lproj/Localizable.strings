@@ -256,4 +256,7 @@ are licensed under [BSD-3-Clause License](https://en.wikipedia.org/wiki/BSD_lice
 
 "file.copy" = "Copy to..";
 "file.download" = "Download to..";
-
+"file.unsaved_file.prompt %@" = "Do you want to save the changes you made to %@?";
+"common.save" = "Save";
+"common.do_not_save" = "Don't Save";
+"common.cancel" = "Cancel";

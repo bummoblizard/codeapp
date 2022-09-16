@@ -17,6 +17,7 @@ struct bottomBar: View {
     @State var showChangeLog: Bool
     @State var currentLine = 0
     @State var currentColumn = 0
+    @State var showSaveFileAlert = false
     @Binding var showingNewFileSheet: Bool
     @Binding var showSafari: Bool
     @Binding var showsFilePicker: Bool
@@ -163,8 +164,26 @@ struct bottomBar: View {
                             }.keyboardShortcut("a", modifiers: [.command])
                         }
                         Button("Close Editor") {
-                            App.closeEditor(
-                                url: App.currentURL(), type: App.activeEditor?.type ?? .any)
+                            guard let activeEditor = App.activeEditor else {
+                                return
+                            }
+                            if activeEditor.isSaved {
+                                App.closeEditor(
+                                    url: App.currentURL(), type: App.activeEditor?.type ?? .any)
+                            }else{
+                                showSaveFileAlert.toggle()
+                            }
+                        }
+                        .alert("file.unsaved_file.prompt \(App.activeEditor?.displayName ?? "")", isPresented: $showSaveFileAlert){
+                            Button("common.save"){
+                                App.saveCurrentFile()
+                                App.closeEditor(
+                                    url: App.currentURL(), type: App.activeEditor?.type ?? .any)
+                            }
+                            Button("common.do_not_save", role: .destructive){
+                                App.closeEditor(
+                                    url: App.currentURL(), type: App.activeEditor?.type ?? .any)
+                            }
                         }
                         .keyboardShortcut("w", modifiers: [.command])
                         .sheet(isPresented: self.$showsDirectoryPicker) {
