@@ -130,7 +130,10 @@ private struct MultiTerminalView: View {
             )
             .onAppear(perform: {
                 guard let terminal = App.terminalManager.activeTerminal else { return }
-                fitTerminalIfReady(terminal)
+                // Allow WKWebView to get the correct frame size before calling fit
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    fitTerminalIfReady(terminal)
+                }
             })
             .onChange(of: App.terminalManager.activeTerminalId) { _ in
                 guard let terminal = App.terminalManager.activeTerminal else {
