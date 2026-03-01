@@ -83,9 +83,7 @@ struct TerminalTabRow: View {
             // Icon
             Image(systemName: "terminal")
                 .font(.system(size: TerminalTabBarConstants.iconSize))
-                .foregroundColor(
-                    isActive ? Color(id: "list.activeSelectionForeground") : Color(id: "foreground")
-                )
+                .foregroundColor(Color(id: "foreground"))
                 .frame(width: 20, height: 20)
             Spacer()
         }
