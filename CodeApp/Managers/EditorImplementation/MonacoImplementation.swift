@@ -103,7 +103,6 @@ class MonacoImplementation: NSObject {
                     if (!el.classList.contains("inputarea")) return;
 
                     el.focus({ preventScroll: true });
-                    document.removeEventListener("focusin", onFocusIn, true);
                 };
 
                 onFocusIn();
